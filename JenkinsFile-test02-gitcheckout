@@ -1,0 +1,15 @@
+pipeline{
+    agent any
+    stages{
+        stage("Welcome Message"){
+            steps{
+                echo 'Hello World. Today is $(date)'
+            }
+        }
+        stage("Git checkout"){
+            steps{
+                git credentialsId: 'Git Login', url: 'https://github.com/kpunde/test'
+            }
+        }
+    }
+}
