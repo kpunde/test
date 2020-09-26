@@ -1,0 +1,58 @@
+# Command Used
+# ansible-playbook -i /test/ansible/inventory play01.yml -e "image_name=kpunde131/test:2.0.0"
+
+-
+  name: Pull and run centos image
+  hosts: "{{ node }}"
+  tasks:
+    - name: install epel
+      yum:
+        name: epel-release
+        state: present
+      become: yes
+      become_user: root
+    
+    - name: install python-pip
+      yum:
+        name: python-pip
+        state: present
+      become: yes
+      become_user: root
+
+    - name: login docker hub
+      docker_login: 
+        username: kpunde131
+        password: Superman1!
+        email: kartik.punde.13@gmail.com
+      become: yes
+      become_user: root
+
+    - name: install docker python api
+      pip:
+        name: docker
+      become: yes
+      become_user: root
+
+    - name: pull
+      docker_image: 
+        name: "{{ image_name }}"
+      become: yes
+      become_user: root
+
+    - name: remove app container
+      docker_container: 
+        name: my-app
+        state: absent
+      become: yes
+      become_user: root
+    
+    - name: start a container
+      docker_container: 
+        name: my-app
+        image: "{{ image_name }}"
+        state: started
+        restart: yes
+        ports:
+          - "8181:8080"
+      become: yes
+      become_user: root
