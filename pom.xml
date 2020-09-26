@@ -38,7 +38,7 @@
     </dependencies>
 
     <build>
-        <finalName>newBuild.jar</finalName>
+        <finalName>newBuild</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
