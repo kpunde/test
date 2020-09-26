@@ -20,7 +20,7 @@ ENV JAVA_HOME /usr/lib/jvm/java-1.8.0-openjdk/
 
 WORKDIR /data/app
 RUN mkdir -p /data/app
-COPY newBuild.jar /data/app/
+COPY target/newBuild.jar /data/app/
 
 EXPOSE 8080
 
